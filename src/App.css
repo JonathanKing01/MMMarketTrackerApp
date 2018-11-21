@@ -45,6 +45,33 @@
   width: 33%
 }
 
+.Add-button {
+  font-size: large; 
+  border-radius: 5px;
+  padding: 10px; 
+  border: 2px solid black;
+  transform: translate(1250%, -760%);
+  width: 8%
+}
+
+.Update-button {
+  font-size: large; 
+  border-radius: 5px;
+  padding: 10px; 
+  border: 2px solid black;
+  transform: translate(1250%, -750%);
+  width: 8%
+}
+
+.Delete-button {
+  font-size: large; 
+  border-radius: 5px;
+  padding: 10px; 
+  border: 2px solid black;
+  transform: translate(1250%, -740%);
+  width: 8%
+}
+
 .Table-row {
   border-radius: 5px;
   padding: 10px; 
@@ -56,10 +83,29 @@
   float: center
 }
 
+.records-table-div{
+  float: right;
+  transform: translate(-40%, -120%);
+}
+
+.report-Table-row {
+  padding: 10px; 
+  border: 2px solid rgb(99, 99, 99);
+  transform: translate(0%, 110%);
+}
+
 .Report{
   transform: translate(-35%, 10%);
 }
 
 .chart{
   transform: translate(100%, 0%);
+}
+
+#item-price-textbox{
+  transform: translate(450%, -770%);
+}
+
+#item-date-textbox{
+  transform: translate(450%, -650%);
 }

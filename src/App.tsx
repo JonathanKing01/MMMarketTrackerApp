@@ -26,6 +26,7 @@ class App extends React.Component<{}, IState>{
                 this.fetchItems = this.fetchItems.bind(this).bind(this)
                 this.fetchItem = this.fetchItem.bind(this)
                 this.selectNewItem = this.selectNewItem.bind(this)
+                // this.AddRecord = this.AddRecord.bind(this)
   }
 
   public render() {
@@ -41,7 +42,7 @@ class App extends React.Component<{}, IState>{
         
         {(itemSelected)?
           <div>
-            <SalesReport currentItem={this.state.currentItem} records={this.state.records} />
+            <SalesReport currentItem={this.state.currentItem} initRecords={this.state.records}/>
           </div>
         : ""}
       </div>
@@ -49,13 +50,9 @@ class App extends React.Component<{}, IState>{
   }
 
   private selectNewItem(newItem: any) {
-
-    this.fetchItem(newItem)
     
-
-		this.setState({
-      itemSelected: true
-		})
+    this.fetchItem(newItem)
+    this.forceUpdate()
 	}
 
   private fetchItems(item: any) {
@@ -103,6 +100,7 @@ class App extends React.Component<{}, IState>{
 			}
 			this.setState({
 				currentItem,
+        itemSelected: true,
 				records: json
 			})
     })
@@ -111,7 +109,51 @@ class App extends React.Component<{}, IState>{
 
 	private methodNotImplemented() {
 		alert("Method not implemented")
-	}
+  }
+  
+  // private AddRecord(item: any) {
+  //   let url = "https://mmmarkettrackerapi.azurewebsites.net/api/MarketSaleRecord"
+    
+  //   var dateNew = new Date().toISOString()
+
+    
+  //   //alert("Item: " + item)
+  //   if(item == null)
+  //     return
+
+  //   var bodyString = JSON.stringify({
+  //                     id: 0,
+  //                     item: this.state.currentItem.item,
+  //                     price: item,
+  //                     date: dateNew,
+  //                   }) 
+
+  //   //alert("Body: " + bodyString)
+    
+
+  //   fetch(url, {
+  //     method: 'POST',
+  //     headers:{
+  //       "accept": "application/json",
+  //       "Content-Type": "application/json-patch+json"
+  //     },
+	// 		body: bodyString
+  //   })
+  //   .then((response : any) => {
+	// 		if (!response.ok) {
+	// 			alert("Response: " + response.statusText)
+	// 		} else {
+	// 			location.reload()
+	// 		}
+	// 	  })
+  //   .catch(err => {alert("Error: " + err)});
+
+  //   this.fetchItem(this.state.currentItem)
+  //   this.setState({
+  //     itemSelected: true
+  //   })
+  //   //alert("Added Reccord")
+	// }
 }
 
 export default App;
