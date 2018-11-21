@@ -49,8 +49,11 @@ class App extends React.Component<{}, IState>{
   }
 
   private selectNewItem(newItem: any) {
+
+    this.fetchItem(newItem)
+    
+
 		this.setState({
-      currentItem: newItem,
       itemSelected: true
 		})
 	}

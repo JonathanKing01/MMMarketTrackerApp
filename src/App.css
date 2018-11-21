@@ -57,5 +57,9 @@
 }
 
 .Report{
-  transform: translate(-38%, 50%);
+  transform: translate(-35%, 10%);
+}
+
+.chart{
+  transform: translate(100%, 0%);
 }
