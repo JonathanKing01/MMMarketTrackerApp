@@ -52,7 +52,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
     return (
       
       <div className="Report">
-        <p>{currentItem.item}</p>
+        <p className="Name-tag">{currentItem.item}</p>
         {this.createChart()}
 
          <div className="records-table-div">
@@ -158,7 +158,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
               children.push(<td className="report-Table-row" key={"price" + i}>{item.price}</td>)
               children.push(<td className="report-Table-row" key={"date" + i}>{new Date(item.date).getUTCHours() 
                                                                               + "." + new Date(item.date).getUTCMinutes() 
-                                                                                + ", " + new Date(item.date).getUTCDate()  + "th"}</td>)
+                                                                                + ", " + new Date(item.date).getUTCDate()}</td>)
               if(item.username==null)
                 item.username = "-"
               children.push(<td className="report-Table-row" key={"name" + i}>{item.username}</td>)
