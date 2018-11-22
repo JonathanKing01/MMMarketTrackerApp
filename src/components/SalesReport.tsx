@@ -24,6 +24,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
       records:this.props.initRecords,
       LocalUpdate: false
     }    
+    alert("Rendering records: " + JSON.stringify(this.state.records))
     this.methodNotImplemented = this.methodNotImplemented.bind(this)
     this.createChart = this.createChart.bind(this)
     this.selectRow = this.selectRow.bind(this)
@@ -83,8 +84,10 @@ export default class SalesReport extends React.Component<IProps, IState> {
     var table:any[] = []
     const itemList = this.state.records;
 
+    
     table.push(["Time", "Price"])
     var day = new Date().getUTCDay()
+    alert("Date: " + day)
     selectedRow: itemList[0];
     for (let i = 0; i < itemList.length; i++) {
       const item = itemList[i]

@@ -80,6 +80,7 @@ class App extends React.Component<{}, IState>{
 	}
 
   private fetchItem(item: any) {
+    alert("Fetching item: " + item)
 		let url = "https://mmmarkettrackerapi.azurewebsites.net/api/MarketSaleRecord"
 		if (item !== "") {
 		  url += "?item=" + item
@@ -91,9 +92,11 @@ class App extends React.Component<{}, IState>{
       method: 'GET'
     })
     .then((response) => {
+      alert("Response code: " + response.statusText)
       return response.json();
     })
     .then(json => {
+      alert("Response body: " + JSON.stringify(json))
       let currentItem = json[0]
 			if (currentItem === undefined) {
 				currentItem = {"id":0, "item":"N/A","price":"0","date":"2018-11-20T01:57:36.268Z"}
