@@ -67,13 +67,13 @@ export default class SalesReport extends React.Component<IProps, IState> {
           {(selectedRow==null)?
             <div>
               <input type="text" id="item-price-textbox" className="Search-box" placeholder="Price" />
-              <input type="text" id="item-date-textbox" className="Search-box" placeholder= "Time"/>
+              <input type="text" id="new-item-textbox" className="Search-box" placeholder= "New Item Name"/>
             </div>
           : ""}
           {(selectedRow!=null)?
             <div>
               <input type="text" id="item-price-textbox" className="Search-box" placeholder={selectedRow.price} />
-              <p id="item-date-textbox" className="report-Table-row"> />{new Date(selectedRow.date).getUTCHours() + "." + new Date(selectedRow.date).getUTCMinutes()}</p>
+              <input type="text" id="new-item-textbox" className="Search-box" placeholder= "New Item Name"/>
             </div>
           : ""}
           <div className="Add-button" onClick = {this.AddRecord}>Add</div>
