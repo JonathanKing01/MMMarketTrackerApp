@@ -114,3 +114,7 @@
   float:right;
   transform: translate(250%, -1250%);
 }
+
+.btn{
+  transform: translate(140%, 68%);
+}
