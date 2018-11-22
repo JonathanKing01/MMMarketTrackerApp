@@ -19,7 +19,7 @@ it('renders records table', () => {
     const div = document.createElement('div');
   
     var dummyRecords = [{id:0, item:"string", price:0, date:"2018-11-20T01:57:36.268Z"}]
-  
+    
     ReactDOM.render(<SalesReport currentItem={{item:"Unit Test"}} initRecords={dummyRecords}/>, div);
     
     var found = div.getElementsByClassName("report-Table-row").item(0) as HTMLElement;
