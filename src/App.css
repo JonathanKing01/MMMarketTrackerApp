@@ -85,7 +85,7 @@
 
 .records-table-div{
   float: right;
-  transform: translate(-40%, -120%);
+  transform: translate(-50px, -400px);
 }
 
 .report-Table-row {
@@ -108,4 +108,9 @@
 
 #item-date-textbox{
   transform: translate(450%, -650%);
+}
+
+.FB-login{
+  float:right;
+  transform: translate(250%, -1250%);
 }

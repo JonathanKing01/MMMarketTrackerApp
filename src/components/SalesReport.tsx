@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Chart} from 'react-google-charts'
+import FacebookLogin from 'react-facebook-login';
 import '../App.css';
 
 interface IProps {
@@ -11,6 +12,7 @@ interface IState{
   selectedRow:any,
   displayItem:any,
   records:any,
+  currentUsername:any,
   LocalUpdate: boolean
 }
 
@@ -22,6 +24,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
       selectedRow: null,
       displayItem: this.props.currentItem,
       records:this.props.initRecords,
+      currentUsername:null,
       LocalUpdate: false
     }    
     alert("Rendering records: " + JSON.stringify(this.state.records))
@@ -32,6 +35,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
     this.UpdateRecord = this.UpdateRecord.bind(this)
     this.DeleteRecord = this.DeleteRecord.bind(this)
     this.fetchItem = this.fetchItem.bind(this)
+    this.responseFacebook = this.responseFacebook.bind(this)
   }
 
   public render() {
@@ -76,8 +80,25 @@ export default class SalesReport extends React.Component<IProps, IState> {
           <div className="Update-button" onClick = {this.UpdateRecord}>Update</div>
           <div className="Delete-button" onClick = {this.DeleteRecord}>Delete</div>
         </p>
-      </div>
+            
+        <div className="FB-login">
+          <FacebookLogin
+          appId="730792807313455"
+          autoLoad={true}
+          fields="name,email,picture"
+          callback={this.responseFacebook} />
+        </div>
+        
+        </div>
     );
+  }
+
+  private responseFacebook(response:any){
+    alert("FB response recieved");
+    alert(JSON.stringify(response.name));
+    this.setState({
+      currentUsername: JSON.stringify(response.name).replace(/"/g,"")
+    })
   }
 
   private createChart() {
@@ -137,7 +158,10 @@ export default class SalesReport extends React.Component<IProps, IState> {
               children.push(<td className="report-Table-row" key={"price" + i}>{item.price}</td>)
               children.push(<td className="report-Table-row" key={"date" + i}>{new Date(item.date).getUTCHours() 
                                                                               + "." + new Date(item.date).getUTCMinutes() 
-                                                                              + ", " + new Date(item.date).getUTCDate()  + "th"}</td>)
+                                                                                + ", " + new Date(item.date).getUTCDate()  + "th"}</td>)
+              if(item.username==null)
+                item.username = "-"
+              children.push(<td className="report-Table-row" key={"name" + i}>{item.username}</td>)
               table.push(<tr key={i+""} id={i+""} onClick= {this.selectRow.bind(this, i)}>{children}</tr>)
             }
         }
@@ -170,6 +194,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
                       id: 0,
                       item: this.props.currentItem.item,
                       price: item,
+                      username: this.state.currentUsername,
                       date: dateNew,
                     }) 
 

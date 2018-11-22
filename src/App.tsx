@@ -34,6 +34,7 @@ class App extends React.Component<{}, IState>{
     return (
       <div className="App">
         <header className="App-header">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to MMO Market Tracker</h1>
         </header>
