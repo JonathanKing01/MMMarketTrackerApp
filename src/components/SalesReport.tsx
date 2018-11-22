@@ -24,7 +24,6 @@ export default class SalesReport extends React.Component<IProps, IState> {
       records:this.props.initRecords,
       LocalUpdate: false
     }    
-    //alert("Records: " + this.state.records)
     this.methodNotImplemented = this.methodNotImplemented.bind(this)
     this.createChart = this.createChart.bind(this)
     this.selectRow = this.selectRow.bind(this)
@@ -89,7 +88,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
     selectedRow: itemList[0];
     for (let i = 0; i < itemList.length; i++) {
       const item = itemList[i]
-      if(new Date(item.date).getUTCDay() == day){
+      if(new Date(item.date).getUTCDay() >= day-2){
         //alert(new Date(item.date).getUTCDate())
         table.push([new Date(item.date).getUTCDate()
            + (new Date(item.date).getUTCHours()*0.01)
@@ -131,7 +130,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
         for (let i = 0; i < itemList.length; i++) {
             const children = []
             const item = itemList[i]
-            if(new Date(item.date).getUTCDay() == day){
+            if(new Date(item.date).getUTCDay() >= day-2){
               children.push(<td className="report-Table-row" key={"price" + i}>{item.price}</td>)
               children.push(<td className="report-Table-row" key={"date" + i}>{new Date(item.date).getUTCHours() 
                                                                               + "." + new Date(item.date).getUTCMinutes() 

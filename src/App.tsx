@@ -86,7 +86,7 @@ class App extends React.Component<{}, IState>{
     } else {
       url += "?item=Ogre"
     }
-
+    
     fetch(url, {
       method: 'GET'
     })
