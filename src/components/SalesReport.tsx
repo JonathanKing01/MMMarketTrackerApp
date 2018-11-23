@@ -27,7 +27,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
       currentUsername:null,
       LocalUpdate: false
     }    
-    alert("Rendering records: " + JSON.stringify(this.state.records))
+    //alert("Rendering records: " + JSON.stringify(this.state.records))
     this.methodNotImplemented = this.methodNotImplemented.bind(this)
     this.createChart = this.createChart.bind(this)
     this.selectRow = this.selectRow.bind(this)
@@ -51,10 +51,11 @@ export default class SalesReport extends React.Component<IProps, IState> {
     }
     return (
       
-      <div className="Report">
-        <p className="Name-tag">{currentItem.item}</p>
-        {this.createChart()}
-
+      <div >
+        <div className="Chart-div">
+          <p className="Name-tag">{currentItem.item}</p>
+          {this.createChart()}
+        </div>
          <div className="records-table-div">
           <table className="table">
             <tbody>
@@ -94,8 +95,8 @@ export default class SalesReport extends React.Component<IProps, IState> {
   }
 
   private responseFacebook(response:any){
-    alert("FB response recieved");
-    alert(JSON.stringify(response.name));
+    //alert("FB response recieved");
+    //alert(JSON.stringify(response.name));
     this.setState({
       currentUsername: JSON.stringify(response.name).replace(/"/g,"")
     })
@@ -108,7 +109,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
     
     table.push(["Time", "Price"])
     var day = new Date().getUTCDay()
-    alert("Date: " + day)
+    //alert("Date: " + day)
     selectedRow: itemList[0];
     for (let i = 0; i < itemList.length; i++) {
       const item = itemList[i]
@@ -181,6 +182,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
   private AddRecord() {
 
     const priceInput = document.getElementById("item-price-textbox") as HTMLInputElement
+    const nameInput = document.getElementById("new-item-textbox") as HTMLInputElement
     var item = priceInput.value
 
     let url = "https://mmmarkettrackerapi.azurewebsites.net/api/MarketSaleRecord"
@@ -189,10 +191,15 @@ export default class SalesReport extends React.Component<IProps, IState> {
 
     if(item == null)
       return
+    
+    var name = this.props.currentItem.item
+    if(nameInput.value != ""){
+      name = nameInput.value
+    }
 
     var bodyString = JSON.stringify({
                       id: 0,
-                      item: this.props.currentItem.item,
+                      item: name,
                       price: item,
                       username: this.state.currentUsername,
                       date: dateNew,
@@ -241,7 +248,7 @@ export default class SalesReport extends React.Component<IProps, IState> {
                       date: this.state.selectedRow.date,
                     }) 
 
-    alert("Body: " + bodyString)
+    //alert("Body: " + bodyString)
 
     fetch(url, {
       method: 'PUT',

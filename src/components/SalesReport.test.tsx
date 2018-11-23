@@ -18,7 +18,9 @@ it('renders name tag', () => {
 it('renders records table', () => {
     const div = document.createElement('div');
   
-    var dummyRecords = [{id:0, item:"string", price:0, date:"2018-11-20T01:57:36.268Z"}]
+    var d = new Date()
+    var dummyRecords = [{id:0, item:"string", price:0, date: d.toUTCString()}]
+    //console.log(d.toUTCString())
     
     ReactDOM.render(<SalesReport currentItem={{item:"Unit Test"}} initRecords={dummyRecords}/>, div);
     
@@ -26,7 +28,10 @@ it('renders records table', () => {
     expect(found.innerHTML).toEqual("0");
 
     found = div.getElementsByClassName("report-Table-row").item(1) as HTMLElement;
-    expect(found.innerHTML).toEqual("1.57, 20");
+    var hour = d.getUTCHours()
+    var min = d.getUTCMinutes()
+    var day = d.getUTCDate()
+    expect(found.innerHTML).toEqual(hour + "." + min + ", " + day);
     
     ReactDOM.unmountComponentAtNode(div);
   });

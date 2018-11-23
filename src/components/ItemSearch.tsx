@@ -18,6 +18,7 @@ export default class ItemSearch extends React.Component<IProps, {}> {
         this.searchByName = this.searchByName.bind(this);
         this.searchNameByVoice = this.searchNameByVoice.bind(this);
         this.postAudio = this.postAudio.bind(this);
+        this.searchByPrice = this.searchByPrice.bind(this);
     }
 
     public render() {
@@ -31,6 +32,9 @@ export default class ItemSearch extends React.Component<IProps, {}> {
 
             <div className="table-div">
             <table className="table"> 
+                <thead>
+                    <th className="Table-header"> Name </th>
+                </thead>
                 <tbody>
                     {this.createTable()}
                 </tbody>
@@ -50,8 +54,8 @@ export default class ItemSearch extends React.Component<IProps, {}> {
         for (let i = 0; i < itemList.length; i++) {
             const children = []
             const item = itemList[i]
-            children.push(<td className="Table-row" key={"name" + i}>{JSON.stringify(item).replace(/"/g,"")}</td>)
-            table.push(<tr key={i+""} id={i+""} onClick= {this.selectRow.bind(this, i)}>{children}</tr>)
+            children.push(<td className="Table-cell" key={"name" + i}>{JSON.stringify(item).replace(/"/g,"")}</td>)
+            table.push(<tr className="Table-row" key={i+""} id={i+""} onClick= {this.selectRow.bind(this, i)}>{children}</tr>)
         }
         return table
     }
@@ -71,12 +75,53 @@ export default class ItemSearch extends React.Component<IProps, {}> {
     }
 
     private searchByName() {
+
         const textBox = document.getElementById("search-item-textbox") as HTMLInputElement
         if (textBox === null) {
             return;
         }
-        const name = textBox.value 
-        this.props.searchByName(name)  
+        var name = textBox.value 
+
+        //Run query through luis to extract entities and interpret non-name queries
+        var res: any;
+        var url = "https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/088f9107-c58e-46be-9522-a4e8cb2136d9?subscription-key=0c3bb008a4c640c99d728c11a6c4daa8&timezoneOffset=-360&q="
+        fetch(url + name, {
+            method: 'GET'
+        }).then((response) => {
+            return response.json()
+        }).then((response) => {
+            res = response
+
+            var entities = res.entities
+            // Check for item matches
+            var itemName = ""
+            var number = ""
+            for(let i = 0; i<entities.length; i++){
+                if(entities[i].type == "Item")
+                    itemName = entities[i].entity
+                else if(entities[i].type == "builtin.number")
+                    number= entities[i].entity
+            }
+            if(itemName == ""){
+                if(res.topScoringIntent.intent == "PriceMatch.GreaterThan"){
+                    this.searchByPrice(number, true)
+                } else if (res.topScoringIntent.intent == "PriceMatch.LessThan"){
+                    this.searchByPrice(number, false)
+                } else {
+                    this.props.searchByName(name) 
+                }
+        } else {
+            this.props.searchByName(itemName)  
+        }
+        }).catch((error) => {
+            console.log("Error", error)
+        });
+
+        
+    }
+
+    private searchByPrice(number: any, greaterThan: any){
+        alert("Price search not yet supported")
     }
 
     private searchNameByVoice(){
@@ -113,7 +158,7 @@ export default class ItemSearch extends React.Component<IProps, {}> {
             // console.log(response.text())
             return response.text()
         }).then((response) => {
-            alert("Token: " + response)
+            //alert("Token: " + response)
             accessToken = response
         }).catch((error) => {
             console.log("Error", error)
@@ -133,7 +178,7 @@ export default class ItemSearch extends React.Component<IProps, {}> {
             return res.json()
         }).then((res: any) => {
             console.log(res)
-            alert("Heard: " + (res.DisplayText as string).slice(0, -1))
+            //alert("Heard: " + (res.DisplayText as string).slice(0, -1))
             const textBox = document.getElementById("search-item-textbox") as HTMLInputElement
             textBox.value = (res.DisplayText as string).slice(0, -1)
         }).catch((error) => {

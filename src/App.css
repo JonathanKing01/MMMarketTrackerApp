@@ -22,7 +22,7 @@
 }
 
 .Search-bar {
-  width: 12%;
+  width: 20%;
   transform: translate(0%, 0%);
   font-size: large;
   position: relative;
@@ -31,7 +31,7 @@
 .Search-box {
   position: absolute;
   padding: 10px; 
-  float: left;
+  float: right;
   font-size: large;
 }
 
@@ -42,7 +42,24 @@
   border-radius: 5px;
   padding: 10px; 
   border: 2px solid black;
-  width: 33%
+  width: 30%
+}
+
+.btn{
+  float: center;
+  transform: translate(-7.5%, 60%);
+}
+
+.Table-cell{
+  border-radius: 5px;
+  padding: 10px; 
+  border: 2px solid black;
+}
+
+.table-div{
+  table-layout:fixed;
+  float: center;
+  transform: translate(0%, 5%);
 }
 
 .Add-button {
@@ -72,17 +89,6 @@
   width: 8%
 }
 
-.Table-row {
-  border-radius: 5px;
-  padding: 10px; 
-  border: 2px solid black;
-  transform: translate(0%, 110%);
-}
-
-.table-div{
-  float: center
-}
-
 .records-table-div{
   float: right;
   transform: translate(-50px, -400px);
@@ -99,7 +105,16 @@
 }
 
 .chart{
-  transform: translate(100%, 0%);
+  transform: translate(0%, 0%);
+}
+
+.Name-tag{
+  text-align: left
+}
+
+.Chart-div{
+  transform: translate(125%, 0%);
+  width: 35%;
 }
 
 #item-price-textbox{
@@ -115,6 +130,5 @@
   transform: translate(250%, -1250%);
 }
 
-.btn{
-  transform: translate(140%, 68%);
+.Input-form{
 }
